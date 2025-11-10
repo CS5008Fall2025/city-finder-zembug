@@ -23,7 +23,7 @@ city_edge_t *create_node(int v, int weight);
 CityGraph *create_graph(int num_vertices);
 void free_graph(CityGraph *graph);
 void add_edge(CityGraph *graph, int src, int dest, int weight);
-void print_graph(CityGraph *graph);
+void print_graph(CityGraph *graph, char **city_names);
 int get_city_index(const char *city_name, char **city_names, int city_count);
 void debug_graph(CityGraph *graph, char **city_names);
 
