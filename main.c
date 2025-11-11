@@ -58,5 +58,8 @@ int main() {
         print_scroll_of_guidance();
     }
 }
+return 0;
+}
+
 
 
