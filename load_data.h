@@ -12,5 +12,8 @@ void load_distances(CityGraph *graph, const char *filename, char **city_names, i
 // Finds the index of a city name in the city_names list
 int get_city_index(const char *city_name, char **city_names, int num_cities);
 
+// Prints the list of city names
+void print_city_list(char **city_names, int num_cities);
+
 
 #endif

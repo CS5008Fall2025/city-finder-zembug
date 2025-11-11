@@ -60,3 +60,11 @@ char **load_cities(const char *filename, int *num_cities) {
     printf("Loaded %d cities from file.\n", count); 
     return city_names; // return the array of city names
 }
+
+
+void print_city_list(char **city_names, int num_cities) {
+    printf("The cities of the realm are:\n");
+    for (int i = 0; i < num_cities; i++) {
+        printf("%s\n", city_names[i]);
+    }
+}
