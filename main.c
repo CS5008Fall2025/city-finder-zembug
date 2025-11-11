@@ -24,7 +24,7 @@ int main() {
     print_splash_message();
 
     char input[137];
-    char city1[69], city2[69];
+    //char city1[69], city2[69];
 
     while (1) {
         printf("Where do you want to go today? ");
