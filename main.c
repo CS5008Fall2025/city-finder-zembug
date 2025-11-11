@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-
+/**
 void print_splash_message() {
     printf("***** Well met, wanderer of the realm! Do you seek paths long forgotten? *****\n");
     printf("You stand at the crossroads of legend, where cities whisper and roads remember.\n");
@@ -22,6 +22,22 @@ void print_scroll_of_guidance() {
     printf("\thelp - displays this scroll of guidance\n");
     printf("\texit - abandon quest and return to the quiet woods\n");
     printf("*******************************************************\n");
+} */
+
+void print_splash_message() {
+    printf("Commands:\n");
+    printf("  list - list all cities\n");
+    printf("  <city1> <city2> - find the shortest path between two cities\n");
+    printf("  help - print this help message\n");
+    printf("  exit - exit the program\n");
+}
+
+void print_scroll_of_guidance() {
+    printf("Commands:\n");
+    printf("  list - list all cities\n");
+    printf("  <city1> <city2> - find the shortest path between two cities\n");
+    printf("  help - print this help message\n");
+    printf("  exit - exit the program\n");
 }
 
 int main() {
