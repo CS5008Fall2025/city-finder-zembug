@@ -28,43 +28,40 @@ int main() {
 
     while (1) {
         printf("Where do you want to go today? ");
-        fgets(input, sizeof(input), stdin);
+
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            // End of input (e.g., piped input exhausted)
+            break;
+        }
+
+        input[strcspn(input, "\n")] = '\0';
 
         if (strcmp(input, "exit") == 0) {
             printf("Farewell, traveler. May the trees guide your path and the wind speak your story.\n");
             break;
-        } 
-        else if (strcmp(input, "help") == 0) {
+        } else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
-        }
-        else if (strcmp(input, "list") == 0) {
+        } else if (strcmp(input, "list") == 0) {
             int num_cities;
             char **city_names = load_cities("vertices.txt", &num_cities);
             if (city_names) {
                 print_city_list(city_names, num_cities);
-                // Free allocated memory
-                for (int i = 0; i < num_cities; i++) {
-                    free(city_names[i]);
-                }
-                free(city_names);
+                free_city_list(city_names, num_cities);
             } else {
                 printf("No cities loaded.\n");
             }
-        }
-        else {
+        } else {
             printf("Invalid Command\n");
             print_scroll_of_guidance();
         }
     }
+
     return 0;
 }
     
    
     
 
-    //int num_cities;
-    //char **city_names = load_cities("vertices.txt", &num_cities);
-    //printf("Loaded %d cities.\n", num_cities);
 
 
 
