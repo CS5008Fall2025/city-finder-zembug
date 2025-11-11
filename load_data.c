@@ -15,7 +15,6 @@
  * @return             A dynamically allocated array of city name strings. NULL if an error occurs.
  **/
 char **load_cities(const char *filename, int *num_cities) {
-    printf("Loading cities from file: %s\n", filename);
 
     FILE *file = fopen(filename, "r"); // open file for reading
     if (file == NULL) { // check if file opened successfully
@@ -57,7 +56,6 @@ char **load_cities(const char *filename, int *num_cities) {
     fclose(file); // close the file
 
     *num_cities = count; // set the number of cities loaded
-    printf("Loaded %d cities from file.\n", count); 
     return city_names; // return the array of city names
 }
 
