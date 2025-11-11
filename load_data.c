@@ -13,7 +13,7 @@
  * @param filename     The name of the file to read from.
  * @param num_cities   Pointer to an integer that will be set to the number of cities loaded.
  * @return             A dynamically allocated array of city name strings. NULL if an error occurs.
- **/
+
 char **load_cities(const char *filename, int *num_cities) {
 
     FILE *file = fopen(filename, "r"); // open file for reading
@@ -57,7 +57,7 @@ char **load_cities(const char *filename, int *num_cities) {
 
     *num_cities = count; // set the number of cities loaded
     return city_names; // return the array of city names
-}
+} **/
 
 /**
  * Prints the list of city names.

@@ -3,24 +3,22 @@
 #include <unistd.h>
 #include "load_data.h"
 
-
-void print_splash_message() {
-    printf("Commands:\n");
-    printf("\tlist - list all cities\n");
-    printf("\t<city1> <city2> - find the shortest path between two cities\n");
-    printf("\thelp - print this help message\n");
-    printf("\texit - exit the program\n");
-    printf("\tWhere do you want to go today?");
-}
-
 void print_scroll_of_guidance() {
     printf("Commands:\n");
     printf("\tlist - list all cities\n");
     printf("\t<city1> <city2> - find the shortest path between two cities\n");
     printf("\thelp - print this help message\n");
     printf("\texit - exit the program\n");
-    printf("\tWhere do you want to go today?");
+    
 }
+
+void print_splash_message() {
+    printf("***** Welcome to the shortest path finder! ******\n");
+    print_scroll_of_guidance();
+    printf("\n*******************************************************\n");
+}
+
+
 
 int main() {
     char input[137];
@@ -34,9 +32,9 @@ int main() {
     char **city_names = load_cities("vertices.txt", &num_cities);
 
     while (1) {
-        if (isatty(fileno(stdin))) {
-            printf("Where do you want to go today? ");
-        }
+        
+        printf("Where do you want to go today? ");
+        
 
         if (fgets(input, sizeof(input), stdin) == NULL) {
             // Don't print anything — just exit silently
@@ -58,7 +56,7 @@ int main() {
         } else if (sscanf(input, "%s %s", city1, city2) == 2) {
             printf("Seeking the swiftest path from %s to %s...\n", city1, city2);
         } else {
-            printf("Alas, that command is unknown in these lands.\n");
+            printf("Invalid Command\n");
             print_scroll_of_guidance();
         }
     }
