@@ -30,7 +30,7 @@ int main() {
         printf("Where do you want to go today? ");
         fgets(input, sizeof(input), stdin);
 
-        if (strcomp(input, "exit") == 0) {
+        if (strcmp(input, "exit") == 0) {
             printf("Farewell, traveler. May the trees guide your path and the wind speak your story.\n");
             break;
         } 
