@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "load_data.h"
 
 /**
 void print_splash_message() {
@@ -40,9 +41,23 @@ void print_scroll_of_guidance() {
     printf("  exit - exit the program\n");
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     char input[137];
     char city1[69], city2[69];
+
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <city_file> <distance_file>\n", argv[0]);
+        return 1;
+    }
+
+    const char *filename = argv[1];
+
+    int num_cities = 0;
+    char **city_names = load_cities(filename, &num_cities);
+    if (city_names == NULL) {
+        fprintf(stderr, "Failed to load city names from file: %s\n", filename);
+        return 1;
+    }
 
     print_splash_message();
     
@@ -57,8 +72,7 @@ int main() {
         } else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
-            printf("The cities of the realm are:\n");
-            // Here you would call a function to list cities from your graph
+            print_city_list(city_names, num_cities);
         } else if (sscanf(input, "%s %s", city1, city2) == 2) {
             printf("Seeking the swiftest path from %s to %s...\n", city1, city2);
             // Here you would call a function to find and print the shortest path
@@ -66,6 +80,9 @@ int main() {
             printf("Alas, that command is unknown in these lands.\n");
             print_scroll_of_guidance();
         }
+    }
+    for (int i = 0; i < num_cities; i++) {
+        free(city_names[i]);
     }
     return 0;
 }

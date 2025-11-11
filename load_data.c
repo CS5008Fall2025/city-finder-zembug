@@ -61,7 +61,12 @@ char **load_cities(const char *filename, int *num_cities) {
     return city_names; // return the array of city names
 }
 
-
+/**
+ * Prints the list of city names.
+ * 
+ * @param city_names  Array of city name strings.
+ * @param num_cities  Number of cities in the array.
+ */
 void print_city_list(char **city_names, int num_cities) {
     printf("The cities of the realm are:\n");
     for (int i = 0; i < num_cities; i++) {
