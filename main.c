@@ -21,21 +21,22 @@ void print_splash_message() {
 
 
 int main() {
-    print_splash_message();
-
     char input[137];
-    //char city1[69], city2[69];
+
+    // Read first line before printing anything
+    if (fgets(input, sizeof(input), stdin) == NULL) {
+        return 0; // No input, exit quietly
+    }
+
+    input[strcspn(input, "\n")] = '\0';
+
+    // If input is not a known command, show splash
+    if (!(strcmp(input, "list") == 0 || strcmp(input, "help") == 0 || strcmp(input, "exit") == 0)) {
+        print_splash_message();
+    }
 
     while (1) {
-        printf("Where do you want to go today? ");
-
-        if (fgets(input, sizeof(input), stdin) == NULL) {
-            // End of input (e.g., piped input exhausted)
-            break;
-        }
-
-        input[strcspn(input, "\n")] = '\0';
-
+        // Process the first input, then continue reading
         if (strcmp(input, "exit") == 0) {
             printf("Farewell, traveler. May the trees guide your path and the wind speak your story.\n");
             break;
@@ -54,10 +55,18 @@ int main() {
             printf("Invalid Command\n");
             print_scroll_of_guidance();
         }
+
+        // Prompt for next input
+        printf("Where do you want to go today?\n");
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            break;
+        }
+        input[strcspn(input, "\n")] = '\0';
     }
 
     return 0;
 }
+
     
    
     
