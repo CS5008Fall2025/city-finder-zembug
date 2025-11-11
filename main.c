@@ -1,28 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "load_data.h"
-/**
-void print_splash_message() {
-    printf("***** Well met, wanderer of the realm! Do you seek paths long forgotten? *****\n");
-    printf("You stand at the crossroads of legend, where cities whisper and roads remember.\n");
-    printf("Your quest: to seek the swiftest path through lands both near and far.\n");
-    printf("Commands:\n");
-    printf("\tlist - reveal the cities of the realm\n");
-    printf("\t<city1> <city2> - unveil the quickest path between two cities\n");
-    printf("\thelp - displays this scroll of guidance\n");
-    printf("\texit - abandon quest and return to the quiet woods\n");
-    printf("*******************************************************\n");
-}
 
-void print_scroll_of_guidance() {
-    printf("***** Scroll of Guidance *****\n");
-    printf("Commands:\n");
-    printf("\tlist - reveal the cities of the realm\n");
-    printf("\t<city1> <city2> - unveil the quickest path between two cities\n");
-    printf("\thelp - displays this scroll of guidance\n");
-    printf("\texit - abandon quest and return to the quiet woods\n");
-    printf("*******************************************************\n");
-} */
 
 void print_splash_message() {
     printf("Commands:\n");
@@ -66,6 +45,7 @@ int main() {
             printf("Alas, that command is unknown in these lands.\n");
             print_scroll_of_guidance();
         }
+    }
    
     return 0;
 }
