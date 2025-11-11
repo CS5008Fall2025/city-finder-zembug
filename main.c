@@ -28,6 +28,8 @@ int main() {
         print_splash_message();
     }
 
+    int num_cities;
+    char **city_names = load_cities("vertices.txt", &num_cities);
     
 
     while (1) {
@@ -43,8 +45,7 @@ int main() {
         } else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
-            int num_cities;
-            char **city_names = load_cities("vertices.txt", &num_cities);
+
             //printf("DEBUG 1: loaded %d cities\n", num_cities);
             //printf("DEBUG 2: list command received\n");
             print_city_list(city_names, num_cities);
