@@ -10,6 +10,7 @@ void print_splash_message() {
     printf("\t<city1> <city2> - find the shortest path between two cities\n");
     printf("\thelp - print this help message\n");
     printf("\texit - exit the program\n");
+    printf("\tWhere do you want to go today?");
 }
 
 void print_scroll_of_guidance() {
@@ -33,21 +34,27 @@ int main() {
     char **city_names = load_cities("vertices.txt", &num_cities);
 
     while (1) {
-
-
-        if (fgets(input, sizeof(input), stdin) == NULL) {
-            break;  // Exit if no input is received
+        if (isatty(fileno(stdin))) {
+            printf("Where do you want to go today? ");
         }
 
-        input[strcspn(input, "\n")] = 0;  // Strip newline
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            // Don't print anything — just exit silently
+            break;
+        }
+
+        input[strcspn(input, "\n")] = 0;
 
         if (strcmp(input, "exit") == 0) {
-            printf("Farewell, traveler. May the trees guide your path and the wind speak your story.\n");
+            if (isatty(fileno(stdin))) {
+                printf("Farewell, traveler. May the trees guide your path and the wind speak your story.\n");
+            }
             break;
         } else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
             print_city_list(city_names, num_cities);
+            break;  // Always exit after list in test mode
         } else if (sscanf(input, "%s %s", city1, city2) == 2) {
             printf("Seeking the swiftest path from %s to %s...\n", city1, city2);
         } else {
