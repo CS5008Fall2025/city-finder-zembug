@@ -39,8 +39,8 @@ int main() {
         } else if (strcmp(input, "list") == 0) {
             int num_cities;
             char **city_names = load_cities("vertices.txt", &num_cities);
-            printf("DEBUG 1: loaded %d cities\n", num_cities);
-            printf("DEBUG 2: list command received\n");
+            //printf("DEBUG 1: loaded %d cities\n", num_cities);
+            //printf("DEBUG 2: list command received\n");
             print_city_list(city_names, num_cities);
         } else if (sscanf(input, "%s %s", city1, city2) == 2) {
             printf("Seeking the swiftest path from %s to %s...\n", city1, city2);
