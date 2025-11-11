@@ -25,6 +25,9 @@ int main() {
 
     print_splash_message();
     
+    int num_cities;
+    char **city_names = load_cities("vertices.txt", &num_cities);
+
     while (1) {
         printf("Speak now, wanderer. Where shall your feet carry you?\n");
         fgets(input, sizeof(input), stdin);
@@ -36,8 +39,7 @@ int main() {
         } else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
-            printf("The cities of the realm are:\n");
-            // Here you would call a function to list cities from your graph
+            print_city_list(city_names, num_cities);
         } else if (sscanf(input, "%s %s", city1, city2) == 2) {
             printf("Seeking the swiftest path from %s to %s...\n", city1, city2);
             // Here you would call a function to find and print the shortest path
