@@ -1,4 +1,4 @@
-#include "load_data.h"
+#include "load_city_data.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -28,8 +28,9 @@ char **load_cities(const char *filename, int *num_cities) {
     int count = 0;
 
     while (fgets(buffer, sizeof(buffer), file)) {
-        // Remove trailing newline
-        buffer[strcspn(buffer, "\n")] = '\0';
+        buffer[strcspn(buffer, "\r\n")] = '\0';
+        //printf("Loaded city: '%s'\n", buffer);
+        if (strlen(buffer) == 0) continue;
 
         cities[count] = malloc(strlen(buffer) + 1);
         if (!cities[count]) {

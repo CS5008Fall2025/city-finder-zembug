@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include "load_data.h"
+#include "load_city_data.h"
 
 void print_scroll_of_guidance() {
     printf("Commands:\n");
@@ -9,34 +9,28 @@ void print_scroll_of_guidance() {
     printf("\t<city1> <city2> - find the shortest path between two cities\n");
     printf("\thelp - print this help message\n");
     printf("\texit - exit the program\n");
-    
 }
 
 void print_splash_message() {
     printf("***** Welcome to the shortest path finder! ******\n");
     print_scroll_of_guidance();
-    printf("\n*******************************************************\n");
+    printf("*******************************************************\n");
 }
-
-
 
 int main() {
     char input[137];
 
-    // Read first line before printing anything
-    if (fgets(input, sizeof(input), stdin) == NULL) {
-        return 0; // No input, exit quietly
-    }
-
-    input[strcspn(input, "\n")] = '\0';
-
-    // If input is not a known command, show splash
-    if (!(strcmp(input, "list") == 0 || strcmp(input, "help") == 0 || strcmp(input, "exit") == 0)) {
-        print_splash_message();
-    }
+    print_splash_message();
 
     while (1) {
-        // Process the first input, then continue reading
+        printf("Where do you want to go today? ");
+
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            break;
+        }
+
+        input[strcspn(input, "\n")] = '\0';
+
         if (strcmp(input, "exit") == 0) {
             printf("Farewell, traveler. May the trees guide your path and the wind speak your story.\n");
             break;
@@ -55,17 +49,11 @@ int main() {
             printf("Invalid Command\n");
             print_scroll_of_guidance();
         }
-
-        // Prompt for next input
-        printf("Where do you want to go today?\n");
-        if (fgets(input, sizeof(input), stdin) == NULL) {
-            break;
-        }
-        input[strcspn(input, "\n")] = '\0';
     }
 
     return 0;
 }
+
 
     
    
