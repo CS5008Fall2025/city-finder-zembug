@@ -24,14 +24,17 @@ int main() {
     char input[137];
     char city1[69], city2[69];
 
-    print_splash_message();
+    if (isatty(fileno(stdin))) {
+        print_splash_message();
+    }
+
     
 
     while (1) {
         printf("Where do you want to go today? ");
         fgets(input, sizeof(input), stdin);
         input[strcspn(input, "\n")] = 0;  // remove newline character
-        printf("DEBUG 6: received input: '%s'\n", input);
+        //printf("DEBUG 6: received input: '%s'\n", input);
 
 
         if (strcmp(input, "exit") == 0) {
