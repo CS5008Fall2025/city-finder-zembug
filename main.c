@@ -36,7 +36,21 @@ int main() {
         } 
         else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
-        } 
+        }
+        else if (strcmp(input, "list") == 0) {
+            int num_cities;
+            char **city_names = load_cities("vertices.txt", &num_cities);
+            if (city_names) {
+                print_city_list(city_names, num_cities);
+                // Free allocated memory
+                for (int i = 0; i < num_cities; i++) {
+                    free(city_names[i]);
+                }
+                free(city_names);
+            } else {
+                printf("No cities loaded.\n");
+            }
+        }
         else {
             printf("Invalid Command\n");
             print_scroll_of_guidance();
@@ -58,39 +72,7 @@ int main() {
 
 
 
-    /**
-   while (1) {
-        
-        printf("Where do you want to go today? ");
-        
 
-        if (fgets(input, sizeof(input), stdin) == NULL) {
-            // Don't print anything — just exit silently
-            break;
-        }
-
-        input[strcspn(input, "\n")] = 0;
-
-        if (strcmp(input, "exit") == 0) {
-            if (isatty(fileno(stdin))) {
-                printf("Farewell, traveler. May the trees guide your path and the wind speak your story.\n");
-            }
-            break;
-        } else if (strcmp(input, "help") == 0) {
-            print_scroll_of_guidance();
-        } else if (strcmp(input, "list") == 0) {
-            print_city_list(city_names, num_cities);
-
-        } else if (sscanf(input, "%s %s", city1, city2) == 2) {
-            printf("Seeking the swiftest path from %s to %s...\n", city1, city2);
-        } else {
-            printf("Invalid Command\n");
-            print_scroll_of_guidance();
-        }
-    }
-
-    return 0;
-} */
 
 
 
