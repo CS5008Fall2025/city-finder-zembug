@@ -3,7 +3,50 @@
 #include <string.h>
 #include <stdio.h>
 
-#define MAX_LINE_LEN 256 // Maximum length for a single line (city name or distance)
+
+#define MAX_CITY_NAME_LEN 100
+#define MAX_CITIES 1000  // Adjust as needed
+
+// Loads city names from a file into a dynamically allocated array
+char **load_cities(const char *filename, int *num_cities) {
+    FILE *file = fopen(filename, "r");
+    if (!file) {
+        perror("Error opening city file");
+        *num_cities = 0;
+        return NULL;
+    }
+
+    char **cities = malloc(MAX_CITIES * sizeof(char *));
+    if (!cities) {
+        perror("Memory allocation failed");
+        fclose(file);
+        *num_cities = 0;
+        return NULL;
+    }
+
+    char buffer[MAX_CITY_NAME_LEN];
+    int count = 0;
+
+    while (fgets(buffer, sizeof(buffer), file)) {
+        // Remove trailing newline
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        cities[count] = malloc(strlen(buffer) + 1);
+        if (!cities[count]) {
+            perror("Memory allocation failed for city name");
+            break;
+        }
+
+        strcpy(cities[count], buffer);
+        count++;
+
+        if (count >= MAX_CITIES) break;
+    }
+
+    fclose(file);
+    *num_cities = count;
+    return cities;
+}
 
 /**
  * Loads city names from a file into a dynamically allocated array.
@@ -70,3 +113,11 @@ void print_city_list(char **city_names, int num_cities) {
         printf("%s\n", city_names[i]);
     }
 }
+
+void free_city_list(char **cities, int count) {
+    for (int i = 0; i < count; i++) {
+        free(cities[i]);
+    }
+    free(cities);
+}
+
