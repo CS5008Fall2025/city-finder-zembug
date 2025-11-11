@@ -33,37 +33,30 @@ int main() {
     
 
     while (1) {
-        if (isatty(fileno(stdin))) {
-            printf("Where do you want to go today? ");
-        }
-        
-        fgets(input, sizeof(input), stdin);
-        input[strcspn(input, "\n")] = 0;  // remove newline character
-        //printf("DEBUG 6: received input: '%s'\n", input);
-
-
-        if (strcmp(input, "exit") == 0) {
-            printf("Farewell, traveler. May the trees guide your path and the wind speak your story.\n");
-            break;
-        } else if (strcmp(input, "help") == 0) {
-            print_scroll_of_guidance();
-        } else if (strcmp(input, "list") == 0) {
-
-            //printf("DEBUG 1: loaded %d cities\n", num_cities);
-            //printf("DEBUG 2: list command received\n");
-            print_city_list(city_names, num_cities);
-            if (!isatty(fileno(stdin))) {
-                break;
-            }
-        } else if (sscanf(input, "%s %s", city1, city2) == 2) {
-            printf("Seeking the swiftest path from %s to %s...\n", city1, city2);
-            // Here you would call a function to find and print the shortest path
-        } else {
-            printf("Alas, that command is unknown in these lands.\n");
-            print_scroll_of_guidance();
-        }
+    if (isatty(fileno(stdin))) {
+        printf("Where do you want to go today? ");
     }
-   
-    return 0;
+
+    if (fgets(input, sizeof(input), stdin) == NULL) {
+        break;  // Exit if no input is received
+    }
+
+    input[strcspn(input, "\n")] = 0;
+
+    if (strcmp(input, "exit") == 0) {
+        printf("Farewell, traveler. May the trees guide your path and the wind speak your story.\n");
+        break;
+    } else if (strcmp(input, "help") == 0) {
+        print_scroll_of_guidance();
+    } else if (strcmp(input, "list") == 0) {
+        print_city_list(city_names, num_cities);
+        if (!isatty(fileno(stdin))) break;
+    } else if (sscanf(input, "%s %s", city1, city2) == 2) {
+        printf("Seeking the swiftest path from %s to %s...\n", city1, city2);
+    } else {
+        printf("Alas, that command is unknown in these lands.\n");
+        print_scroll_of_guidance();
+    }
 }
+
 
