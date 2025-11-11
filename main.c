@@ -33,7 +33,10 @@ int main() {
     
 
     while (1) {
-        printf("Where do you want to go today? ");
+        if (isatty(fileno(stdin))) {
+            printf("Where do you want to go today? ");
+        }
+        
         fgets(input, sizeof(input), stdin);
         input[strcspn(input, "\n")] = 0;  // remove newline character
         //printf("DEBUG 6: received input: '%s'\n", input);
