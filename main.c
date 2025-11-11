@@ -54,7 +54,7 @@ int main() {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
             print_city_list(city_names, num_cities);
-            break;  // Always exit after list in test mode
+
         } else if (sscanf(input, "%s %s", city1, city2) == 2) {
             printf("Seeking the swiftest path from %s to %s...\n", city1, city2);
         } else {
