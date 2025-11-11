@@ -29,7 +29,7 @@ int main() {
     }
 
     int num_cities;
-    char **city_names = load_cities("vertices.txt", &num_cities);
+    //char **city_names = load_cities("vertices.txt", &num_cities);
 
     while (1) {
         
