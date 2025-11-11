@@ -18,6 +18,7 @@ void print_scroll_of_guidance() {
     printf("\t<city1> <city2> - find the shortest path between two cities\n");
     printf("\thelp - print this help message\n");
     printf("\texit - exit the program\n");
+    printf("\tWhere do you want to go today?");
 }
 
 int main() {
@@ -31,12 +32,8 @@ int main() {
     int num_cities;
     char **city_names = load_cities("vertices.txt", &num_cities);
 
-    
-
     while (1) {
-        if (isatty(fileno(stdin))) {
-            printf("Where do you want to go today? ");
-        }
+
 
         if (fgets(input, sizeof(input), stdin) == NULL) {
             break;  // Exit if no input is received
@@ -51,7 +48,6 @@ int main() {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
             print_city_list(city_names, num_cities);
-            break;  // Always break after list in non-interactive mode
         } else if (sscanf(input, "%s %s", city1, city2) == 2) {
             printf("Seeking the swiftest path from %s to %s...\n", city1, city2);
         } else {
