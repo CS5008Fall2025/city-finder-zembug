@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+#include "load_data.h"
 /**
 void print_splash_message() {
     printf("***** Well met, wanderer of the realm! Do you seek paths long forgotten? *****\n");
@@ -44,6 +44,14 @@ int main() {
     char input[137];
     char city1[69], city2[69];
 
+    const char* filename = "vertices.txt";
+    int num_cities;
+    char **city_names = load_cities(filename, &num_cities);
+    if (city_names == NULL) {
+        fprintf(stderr, "Failed to load city names from %s. Exiting.\n", filename);
+        return 1;
+    }
+
     print_splash_message();
     
     while (1) {
@@ -67,6 +75,10 @@ int main() {
             print_scroll_of_guidance();
         }
     }
+    for (int i = 0; i < num_cities; i++) {
+        free(city_names[i]);
+    }
+    free(city_names);
     return 0;
 }
 
