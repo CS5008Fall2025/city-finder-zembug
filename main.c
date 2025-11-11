@@ -5,18 +5,18 @@
 
 void print_splash_message() {
     printf("Commands:\n");
-    printf("  list - list all cities\n");
-    printf("  <city1> <city2> - find the shortest path between two cities\n");
-    printf("  help - print this help message\n");
-    printf("  exit - exit the program\n");
+    printf("\tlist - list all cities\n");
+    printf("\t<city1> <city2> - find the shortest path between two cities\n");
+    printf("\thelp - print this help message\n");
+    printf("\texit - exit the program\n");
 }
 
 void print_scroll_of_guidance() {
     printf("Commands:\n");
-    printf("  list - list all cities\n");
-    printf("  <city1> <city2> - find the shortest path between two cities\n");
-    printf("  help - print this help message\n");
-    printf("  exit - exit the program\n");
+    printf("\tlist - list all cities\n");
+    printf("\t<city1> <city2> - find the shortest path between two cities\n");
+    printf("\thelp - print this help message\n");
+    printf("\texit - exit the program\n");
 }
 
 int main() {
@@ -29,7 +29,7 @@ int main() {
     char **city_names = load_cities("vertices.txt", &num_cities);
 
     while (1) {
-        printf("Speak now, wanderer. Where shall your feet carry you?\n");
+        printf("Where do you want to go today? ");
         fgets(input, sizeof(input), stdin);
         input[strcspn(input, "\n")] = 0;  // remove newline character
 
