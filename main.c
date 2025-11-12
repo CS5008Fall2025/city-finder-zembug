@@ -17,19 +17,6 @@ void print_splash_message() {
     printf("*******************************************************\n");
 }
 
-void handle_list_command(const char *filename) {
-    int num_cities;
-    char **city_names = load_cities(filename, &num_cities);
-
-    if (city_names) {
-        print_city_list(city_names, num_cities);
-        free_city_list(city_names, num_cities);
-    } else {
-        printf("No cities loaded.\n");
-    }
-}
-
-
 int main(int argc, char *argv[]) {
     const char *filename = "vertices.txt"; // default file name
     if (argc > 1) filename = argv[1];      // override if provided
@@ -49,7 +36,15 @@ int main(int argc, char *argv[]) {
         } else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
-            handle_list_command(filename);
+            int num_cities;
+            char **city_names = load_cities(filename, &num_cities);
+
+            if (city_names) {
+                print_city_list(city_names, num_cities);
+                free_city_list(city_names, num_cities);
+            } else {
+                printf("No cities loaded.\n");
+            }
         } else {
             printf("Invalid Command\n");
             print_scroll_of_guidance();
