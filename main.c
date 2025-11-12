@@ -20,19 +20,17 @@ void print_splash_message() {
 int main() {
     char input[137];
 
-    print_splash_message();
+    print_splash_message();  // once
 
     while (1) {
         printf("Where do you want to go today? ");
 
-        if (fgets(input, sizeof(input), stdin) == NULL) {
-            break;
-        }
+        if (fgets(input, sizeof(input), stdin) == NULL) break;
 
         input[strcspn(input, "\n")] = '\0';
 
         if (strcmp(input, "exit") == 0) {
-            printf("Farewell, traveler. May the trees guide your path and the wind speak your story.\n");
+            printf("Goodbye!\n");
             break;
         } else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
