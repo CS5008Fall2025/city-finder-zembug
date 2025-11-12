@@ -27,7 +27,11 @@ int main() {
 
         if (fgets(input, sizeof(input), stdin) == NULL) break;
 
-        input[strcspn(input, "\n")] = '\0';
+        input[strcspn(input, "\r\n")] = '\0';
+
+        for (int i = strlen(input) - 1; i >= 0 && input[i] == ' '; i--) {
+            input[i] = '\0';
+        }
 
         if (strcmp(input, "exit") == 0) {
             printf("Goodbye!\n");
