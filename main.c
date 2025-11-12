@@ -17,16 +17,17 @@ void print_splash_message() {
     printf("*******************************************************\n");
 }
 
-int main() {
-    char input[137];
+int main(int argc, char *argv[]) {
+    const char *filename = "vertices.txt"; // default file name
+    if (argc > 1) filename = argv[1];      // override if provided
 
-    print_splash_message();  
+    char input[137];
+    print_splash_message();
 
     while (1) {
         printf("Where do you want to go today? ");
 
         if (fgets(input, sizeof(input), stdin) == NULL) break;
-
         input[strcspn(input, "\r\n")] = '\0';
 
         if (strcmp(input, "exit") == 0) {
@@ -36,7 +37,7 @@ int main() {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
             int num_cities;
-            char **city_names = load_cities("./vertices.txt", &num_cities);
+            char **city_names = load_cities(filename, &num_cities);
 
             if (city_names) {
                 print_city_list(city_names, num_cities);
@@ -52,21 +53,3 @@ int main() {
 
     return 0;
 }
-
-
-    
-   
-    
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,30 +4,34 @@
 #include <stdio.h>
 
 
-// Loads city names from a file
+/**
+ * Loads city names from a specified file.
+ * @param filename    Path to the file containing city names.
+ * @param num_cities  Pointer to an integer to store the number of cities loaded.
+ */
 char **load_cities(const char *filename, int *num_cities) {
-    FILE *file = fopen(filename, "r");
+    FILE *file = fopen(filename, "r"); // open file for reading
     if (file == NULL) {
         printf("Error: could not open %s\n", filename);
-        *num_cities = 0;
+        *num_cities = 0; // set number of cities to 0 on error
         return NULL;
     }
 
-    char line[100];
+    char line[100]; // buffer for reading lines
     char **cities = malloc(100 * sizeof(char*)); // up to 100 cities max
-    int count = 0;
+    int count = 0; // number of cities loaded
 
     while (fgets(line, sizeof(line), file)) {
         line[strcspn(line, "\n")] = '\0';  // remove newline
 
         // allocate space for this city and copy the name
         cities[count] = malloc(strlen(line) + 1);
-        strcpy(cities[count], line);
-        count++;
+        strcpy(cities[count], line); // copy city name
+        count++; // increment city count
     }
 
     fclose(file);
-    *num_cities = count;
+    *num_cities = count; // set number of cities loaded
     return cities;
 }
 
