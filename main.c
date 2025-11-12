@@ -68,7 +68,7 @@ int main(void) {
                 printf("No cities loaded.\n");
         } 
         else if (sscanf(input, "%s %s", city1, city2) == 2) {
-            find_shortest_path(city1, city2);
+            //find_shortest_path(city1, city2);
         } 
         else {
             printf("Invalid Command\n");
