@@ -13,7 +13,7 @@ char **load_cities(const char *filename, int *num_cities);
 // Prints the list of city names
 void print_city_list(char **city_names, int num_cities);
 
-
+// Frees the memory allocated for city names
 void free_city_list(char **city_names, int num_cities);
 
 

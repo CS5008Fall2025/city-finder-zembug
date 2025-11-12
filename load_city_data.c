@@ -4,44 +4,26 @@
 #include <stdio.h>
 
 
-#define MAX_CITY_NAME_LEN 100
-#define MAX_CITIES 1000
-
 // Loads city names from a file
 char **load_cities(const char *filename, int *num_cities) {
     FILE *file = fopen(filename, "r");
-    if (!file) {
-        perror("Error opening city file");
+    if (file == NULL) {
+        printf("Error: could not open %s\n", filename);
         *num_cities = 0;
         return NULL;
     }
 
-    char **cities = malloc(MAX_CITIES * sizeof(char *));
-    if (!cities) {
-        perror("Memory allocation failed");
-        fclose(file);
-        *num_cities = 0;
-        return NULL;
-    }
-
-    char buffer[MAX_CITY_NAME_LEN];
+    char line[100];
+    char **cities = malloc(100 * sizeof(char*)); // up to 100 cities max
     int count = 0;
 
-    while (fgets(buffer, sizeof(buffer), file)) {
-        buffer[strcspn(buffer, "\r\n")] = '\0';
-        //printf("Loaded city: '%s'\n", buffer);
-        if (strlen(buffer) == 0) continue;
+    while (fgets(line, sizeof(line), file)) {
+        line[strcspn(line, "\n")] = '\0';  // remove newline
 
-        cities[count] = malloc(strlen(buffer) + 1);
-        if (!cities[count]) {
-            perror("Memory allocation failed for city name");
-            break;
-        }
-
-        strcpy(cities[count], buffer);
+        // allocate space for this city and copy the name
+        cities[count] = malloc(strlen(line) + 1);
+        strcpy(cities[count], line);
         count++;
-
-        if (count >= MAX_CITIES) break;
     }
 
     fclose(file);
@@ -50,22 +32,26 @@ char **load_cities(const char *filename, int *num_cities) {
 }
 
 
-
 /**
  * Prints the list of city names.
  * 
  * @param city_names  Array of city name strings.
  * @param num_cities  Number of cities in the array.
- 
+ */
 void print_city_list(char **city_names, int num_cities) {
     for (int i = 0; i < num_cities; i++) {
         printf("%s\n", city_names[i]);
     }
 }
 
+/** Frees the memory allocated for city names.
+ *
+ * @param cities  Array of city name strings.
+ * @param count   Number of cities in the array.
+ */
 void free_city_list(char **cities, int count) {
     for (int i = 0; i < count; i++) {
         free(cities[i]);
     }
     free(cities);
-}*/
+}
