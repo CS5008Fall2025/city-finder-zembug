@@ -29,7 +29,6 @@ void handle_list_command(const char *filename) {
     }
 }
 
-
 int main(int argc, char *argv[]) {
     const char *filename = "vertices.txt"; // default file name
     if (argc > 1) filename = argv[1];      // override if provided
