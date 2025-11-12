@@ -33,7 +33,7 @@ int main(void) {
     int num_cities = 0;
     char **cities = NULL;
 
-    print_splash_message();  // ✅ Show this right away!
+    print_splash_message();
 
     cities = load_cities("cities.txt", &num_cities);
 
