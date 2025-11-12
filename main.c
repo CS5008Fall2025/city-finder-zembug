@@ -36,7 +36,8 @@ int main() {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
             int num_cities;
-            char **city_names = load_cities("vertices.txt", &num_cities);
+            char **city_names = load_cities("./vertices.txt", &num_cities);
+
             if (city_names) {
                 print_city_list(city_names, num_cities);
                 free_city_list(city_names, num_cities);
