@@ -17,41 +17,65 @@ void print_splash_message() {
     printf("*******************************************************\n");
 }
 
-int main() {
-    char input[137];
+char **load_cities(const char *filename, int *num_cities);
+//int find_shortest_path(const char *city1, const char *city2); // your real function
 
-    print_splash_message();  // once
+// Helper function to print all loaded cities
+void list_cities(char **cities, int num_cities) {
+    for (int i = 0; i < num_cities; i++) {
+        printf("%s\n", cities[i]);
+    }
+}
+
+int main(void) {
+    char input[100];
+    char city1[50], city2[50];
+    int num_cities = 0;
+    char **cities = load_cities("vertices.txt", &num_cities);
+
+    if (cities == NULL || num_cities == 0) {
+        printf("Error: could not load cities.\n");
+        return 1;
+    }
+
+    print_splash_message();
 
     while (1) {
         printf("Where do you want to go today? ");
+        
+        if (fgets(input, sizeof(input), stdin) == NULL)
+            break;
 
-        if (fgets(input, sizeof(input), stdin) == NULL) break;
+        input[strcspn(input, "\n")] = '\0';  // remove newline
 
-        input[strcspn(input, "\r\n")] = '\0';
-
-        for (int i = strlen(input) - 1; i >= 0 && input[i] == ' '; i--) {
-            input[i] = '\0';
-        }
+        if (strlen(input) == 0)
+            continue;
 
         if (strcmp(input, "exit") == 0) {
             printf("Goodbye!\n");
             break;
-        } else if (strcmp(input, "help") == 0) {
+        } 
+        else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
-        } else if (strcmp(input, "list") == 0) {
-            int num_cities;
-            char **city_names = load_cities("vertices.txt", &num_cities);
-            if (city_names) {
-                print_city_list(city_names, num_cities);
-                free_city_list(city_names, num_cities);
-            } else {
-                printf("No cities loaded.\n");
-            }
-        } else {
+        } 
+        else if (strcmp(input, "list") == 0) {
+            list_cities(cities, num_cities);
+        } 
+        else if (sscanf(input, "%s %s", city1, city2) == 2) {
+            //find_shortest_path(city1, city2);
+            printf("Finding shortest path from %s to %s...\n", city1, city2);
+        } 
+        else {
             printf("Invalid Command\n");
             print_scroll_of_guidance();
         }
     }
+
+    // Free memory from load_cities
+    for (int i = 0; i < num_cities; i++) {
+        free(cities[i]);
+    }
+    free(cities);
 
     return 0;
 }

@@ -56,7 +56,7 @@ char **load_cities(const char *filename, int *num_cities) {
  * 
  * @param city_names  Array of city name strings.
  * @param num_cities  Number of cities in the array.
- */
+ 
 void print_city_list(char **city_names, int num_cities) {
     for (int i = 0; i < num_cities; i++) {
         printf("%s\n", city_names[i]);
@@ -68,5 +68,4 @@ void free_city_list(char **cities, int count) {
         free(cities[i]);
     }
     free(cities);
-}
-
+}*/
