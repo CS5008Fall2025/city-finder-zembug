@@ -31,14 +31,16 @@ int main(void) {
     char input[100];
     char city1[50], city2[50];
     int num_cities = 0;
-    char **cities = load_cities("vertices.txt", &num_cities);
+    char **cities = NULL;
+
+    print_splash_message();  // ✅ Show this right away!
+
+    cities = load_cities("cities.txt", &num_cities);
 
     if (cities == NULL || num_cities == 0) {
         printf("Error: could not load cities.\n");
-        return 1;
+        // still allow program to continue so user can type help/exit
     }
-
-    print_splash_message();
 
     while (1) {
         printf("Where do you want to go today? ");
@@ -46,7 +48,7 @@ int main(void) {
         if (fgets(input, sizeof(input), stdin) == NULL)
             break;
 
-        input[strcspn(input, "\n")] = '\0';  // remove newline
+        input[strcspn(input, "\n")] = '\0';
 
         if (strlen(input) == 0)
             continue;
@@ -59,11 +61,14 @@ int main(void) {
             print_scroll_of_guidance();
         } 
         else if (strcmp(input, "list") == 0) {
-            list_cities(cities, num_cities);
+            if (cities && num_cities > 0)
+                for (int i = 0; i < num_cities; i++)
+                    printf("%s\n", cities[i]);
+            else
+                printf("No cities loaded.\n");
         } 
         else if (sscanf(input, "%s %s", city1, city2) == 2) {
-            //find_shortest_path(city1, city2);
-            printf("Finding shortest path from %s to %s...\n", city1, city2);
+            find_shortest_path(city1, city2);
         } 
         else {
             printf("Invalid Command\n");
@@ -71,11 +76,11 @@ int main(void) {
         }
     }
 
-    // Free memory from load_cities
-    for (int i = 0; i < num_cities; i++) {
-        free(cities[i]);
+    if (cities) {
+        for (int i = 0; i < num_cities; i++)
+            free(cities[i]);
+        free(cities);
     }
-    free(cities);
 
     return 0;
 }
