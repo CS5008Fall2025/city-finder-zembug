@@ -2,6 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include "load_city_data.h"
+#include "load_distance_data.h"
 
 void print_scroll_of_guidance() {
     printf("Commands:\n");
