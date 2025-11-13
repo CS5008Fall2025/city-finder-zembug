@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "load_distance_data.h"
 
 
@@ -39,6 +40,7 @@ Distance *load_distances(const char *filename, int *num_distances) {
  */
 void print_distances(Distance *distances, int count) {
     for (int i = 0; i < count; i++) {
+        // prints in format: source -> destination : distance
         printf("%s -> %s : %d\n", distances[i].source, distances[i].destination, distances[i].distance);
     }
 }

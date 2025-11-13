@@ -17,7 +17,7 @@ void print_splash_message() {
     printf("*******************************************************\n");
 }
 
-void handle_list_command(const char *filename) {
+void handle_list_input(const char *filename) {
     int num_cities;
     char **city_names = load_cities(filename, &num_cities);
 
@@ -48,7 +48,24 @@ int main(int argc, char *argv[]) {
         } else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
-            handle_list_command(filename);
+            handle_list_input(filename);
+        } else if (strcmp(input, "debug") == 0) {
+            // Load cities and distances
+            int num_cities = 0, num_distances = 0;
+            char **cities = load_cities(filename, &num_cities);
+            Distance *distances = load_distances("distances.txt", &num_distances);
+
+            // Build graph and print it
+            CityGraph *graph = build_graph(cities, num_cities, distances, num_distances);
+            debug_graph(graph, cities);
+            print_graph(graph, cities);
+
+            // Cleanup
+            free_graph(graph);
+            free_city_list(cities, num_cities);
+            free_distances(distances);
+        
+
         } else {
             printf("Invalid Command\n");
             print_scroll_of_guidance();

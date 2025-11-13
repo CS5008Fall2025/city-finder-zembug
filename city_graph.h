@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "load_distance_data.h"
 
 // This struct represents one connection (edge) between cities.
 // Each edge stores:
@@ -41,5 +42,8 @@ void add_edge(CityGraph *graph, int src, int dest, int weight);
 void print_graph(CityGraph *graph, char **city_names);
 // Debug to print each city with its index
 void debug_graph(CityGraph *graph, char **city_names);
+// Builds graph from city names and distance data
+CityGraph *build_graph(char **city_names, int num_cities, Distance *distances, int num_distances);
+
 
 #endif 

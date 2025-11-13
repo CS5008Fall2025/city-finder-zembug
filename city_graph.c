@@ -1,9 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "city_graph.h"
 
 
 /**
  * Creates a new edge node representing a connection to a city.
- *
  * @param v       Index of the destination city (vertex).
  * @param weight  Weight or distance of the edge.
  * @return Pointer to the newly created edge node.
@@ -19,7 +21,6 @@ city_edge_t *create_node(int v, int weight)
 
 /**
  * Initializes a new graph with a specified number of cities.
- *
  * @param num_vertices  Number of cities (vertices) in the graph.
  * @return Pointer to the newly created CityGraph structure.
  */
@@ -38,7 +39,6 @@ CityGraph *create_graph(int num_vertices)
 
 /**
  * Frees all dynamically allocated memory used by the graph.
- *
  * @param graph  Pointer to the CityGraph structure to be deallocated.
  */
 void free_graph(CityGraph *graph)
@@ -60,7 +60,6 @@ void free_graph(CityGraph *graph)
 
 /**
  * Adds an undirected edge between two cities with a given weight.
- *
  * @param graph   Pointer to the graph.
  * @param src     Index of the source city.
  * @param dest    Index of the destination city.
@@ -80,7 +79,6 @@ void add_edge(CityGraph *graph, int src, int dest, int weight)
 
 /**
  * Prints the adjacency list of each city in the graph.
- *
  * @param graph       Pointer to the graph.
  * @param city_names  Array of city names indexed by city position.
  */
@@ -105,7 +103,6 @@ void print_graph(CityGraph *graph, char **city_names)
 
 /**
  * Prints each city's index and name for debugging purposes.
- *
  * @param graph       Pointer to the graph.
  * @param city_names  Array of city names indexed by city ID.
  */
@@ -118,4 +115,45 @@ void debug_graph(CityGraph *graph, char **city_names)
     }
 }
 
-   
+/**
+ * Builds a graph from city names and distance data.
+ * @param city_names     Array of city names.
+ * @param num_cities     Number of cities.
+ * @param distances      Array of Distance structs representing connections.
+ * @param num_distances  Number of distances in the array.
+ */
+CityGraph *build_graph(char **city_names, int num_cities, Distance *distances, int num_distances) {
+    CityGraph *graph = create_graph(num_cities);
+
+    for (int i = 0; i < num_distances; i++) {
+        int src = -1, dest = -1;
+
+        
+        
+        char src_clean[100], dest_clean[100];
+        strcpy(src_clean, distances[i].source);
+        strcpy(dest_clean, distances[i].destination);
+
+        // Remove trailing newline or carriage return
+        src_clean[strcspn(src_clean, "\r\n")] = '\0';
+        dest_clean[strcspn(dest_clean, "\r\n")] = '\0';
+
+        // Find indices of source and destination cities
+        for (int j = 0; j < num_cities; j++) {
+            for (int j = 0; j < num_cities; j++) {
+                if (strcmp(city_names[j], src_clean) == 0) src = j;
+                if (strcmp(city_names[j], dest_clean) == 0) dest = j;
+}
+
+        }
+
+        // Only add edge if both cities were found
+        if (src != -1 && dest != -1) {
+            add_edge(graph, src, dest, distances[i].distance);
+        } else {
+            printf("Warning: could not find indices for %s -> %s\n", distances[i].source, distances[i].destination);
+        }
+    }
+
+    return graph;
+}

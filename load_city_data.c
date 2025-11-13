@@ -38,7 +38,6 @@ char **load_cities(const char *filename, int *num_cities) {
 
 /**
  * Prints the list of city names.
- * 
  * @param city_names  Array of city name strings.
  * @param num_cities  Number of cities in the array.
  */
@@ -49,7 +48,6 @@ void print_city_list(char **city_names, int num_cities) {
 }
 
 /** Frees the memory allocated for city names.
- *
  * @param cities  Array of city name strings.
  * @param count   Number of cities in the array.
  */
