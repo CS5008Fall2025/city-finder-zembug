@@ -128,8 +128,6 @@ CityGraph *build_graph(char **city_names, int num_cities, Distance *distances, i
     for (int i = 0; i < num_distances; i++) {
         int src = -1, dest = -1;
 
-        
-        
         char src_clean[100], dest_clean[100];
         strcpy(src_clean, distances[i].source);
         strcpy(dest_clean, distances[i].destination);
@@ -140,11 +138,12 @@ CityGraph *build_graph(char **city_names, int num_cities, Distance *distances, i
 
         // Find indices of source and destination cities
         for (int j = 0; j < num_cities; j++) {
-            for (int j = 0; j < num_cities; j++) {
-                if (strcmp(city_names[j], src_clean) == 0) src = j;
-                if (strcmp(city_names[j], dest_clean) == 0) dest = j;
-}
+            char city_clean[100];
+            strcpy(city_clean, city_names[j]);
+            city_clean[strcspn(city_clean, "\r\n")] = '\0';
 
+            if (strcmp(city_clean, src_clean) == 0) src = j;
+            if (strcmp(city_clean, dest_clean) == 0) dest = j;
         }
 
         // Only add edge if both cities were found
