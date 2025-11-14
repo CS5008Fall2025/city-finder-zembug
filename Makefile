@@ -1,6 +1,6 @@
 CC = gcc   # This variable is which compiler to use, we will use the variable later by $(CC)
 CFLAGS = -Wall  # this variable is command line arguments
-CFILES = main.c city_graph.c load_city_data.c load_distance_data.c # this variable is the list of files to compile - UPDATE THIS LINE with your files
+CFILES = main.c city_graph.c load_city_data.c load_distance_data.c path_finder.c # this variable is the list of files to compile - UPDATE THIS LINE with your files
 
 all: map.out  #runs target myprogram is nothing is passed into make
 
