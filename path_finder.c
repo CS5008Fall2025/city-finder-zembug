@@ -14,7 +14,7 @@
  * @return An array of city indices representing the shortest path from source to destination.
  */
 
-int *shortest_path(CityGraph *graph, int src, int dest, int *path_length){
+int *shortest_path(CityGraph *graph, int src, int dest, int *path_length, int *total_distance){
     // Validate input:
     if (graph == NULL) { // graph must exist
         return NULL;
@@ -112,6 +112,7 @@ int *shortest_path(CityGraph *graph, int src, int dest, int *path_length){
     }
 
     *path_length = count; // set the number of cities in the path
-        FREEPATH();
-        return path; // return shortest path as array of city indices
+    *total_distance = distance[dest]; // set the total distance of the path 
+    FREEPATH();
+    return path; // return shortest path as array of city indices
 }

@@ -60,13 +60,15 @@ void handle_path_input(const char *city1, const char *city2, const char *vertice
         return;
     }
     int path_length = 0;
-    int *path = shortest_path(graph, src, dest, &path_length);
+    int total_distance = 0;
+    int *path = shortest_path(graph, src, dest, &path_length, &total_distance);
 
     if (path) {
         printf("Path Found...\n");
         for (int i = 0; i < path_length; i++) {
             printf("\t%s\n", city_names[path[i]]);
         }
+        printf("Total distance: %d\n", total_distance);
         free(path);
     } else {
         printf("Path Not Found...\n");
