@@ -20,9 +20,9 @@ void print_splash_message() {
     printf("*******************************************************\n");
 }
 
-void handle_list_input(const char *filename) {
+void handle_list_input(const char *vertices_filename) {
     int num_cities;
-    char **city_names = load_cities(filename, &num_cities);
+    char **city_names = load_cities(vertices_filename, &num_cities);
 
     if (city_names) {
         print_city_list(city_names, num_cities);
@@ -32,10 +32,10 @@ void handle_list_input(const char *filename) {
     }
 }
 
-void handle_path_input(const char *city1, const char *city2, const char *filename) {
+void handle_path_input(const char *city1, const char *city2, const char *vertices_filename, const char *distances_filename) {
     int num_cities = 0, num_distances = 0;
-    char **city_names = load_cities(filename, &num_cities);
-    Distance *distances = load_distances("distances.txt", &num_distances);
+    char **city_names = load_cities(vertices_filename, &num_cities);
+    Distance *distances = load_distances(distances_filename, &num_distances);
 
     if (!city_names || !distances) {
         printf("Failed loading city or distance data.\n");
@@ -77,27 +77,12 @@ void handle_path_input(const char *city1, const char *city2, const char *filenam
 }
 
 
-// remove later
-void debug_this(const char *filename) {
-    // Load cities and distances
-    int num_cities = 0, num_distances = 0;
-    char **cities = load_cities(filename, &num_cities);
-    Distance *distances = load_distances("distances.txt", &num_distances);
-
-    // Build graph and print it
-    CityGraph *graph = build_graph(cities, num_cities, distances, num_distances);
-    debug_graph(graph, cities);
-    print_graph(graph, cities);
-
-    // Cleanup
-    free_graph(graph);
-    free_city_list(cities, num_cities);
-    free_distances(distances);
-}
-
 int main(int argc, char *argv[]) {
-    const char *filename = "vertices.txt"; // default file name
-    if (argc > 1) filename = argv[1];      // override if provided
+    const char *vertices_filename = "vertices.txt"; // default file name
+    const char *distances_filename = "distances.txt"; // default distances file name
+    
+    if (argc > 1) vertices_filename = argv[1]; // override if provided
+    if (argc > 2) distances_filename = argv[2]; // override if provided
 
     char input[137];
     print_splash_message();
@@ -114,16 +99,7 @@ int main(int argc, char *argv[]) {
         } else if (strcmp(input, "help") == 0) {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
-            handle_list_input(filename);
-
-        
-
-            //remove later
-        } else if (strcmp(input, "debug") == 0) {  
-            debug_this(filename);
-            continue;
-
-
+            handle_list_input(vertices_filename);
 
         } else {
             char city1[64], city2[64];
@@ -132,7 +108,7 @@ int main(int argc, char *argv[]) {
                 print_scroll_of_guidance();
                 continue;
             }
-            handle_path_input(city1, city2, filename);
+            handle_path_input(city1, city2, vertices_filename, distances_filename);
         }
     }
 
