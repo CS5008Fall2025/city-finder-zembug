@@ -121,36 +121,42 @@ void debug_graph(CityGraph *graph, char **city_names)
  * @param num_cities     Number of cities.
  * @param distances      Array of Distance structs representing connections.
  * @param num_distances  Number of distances in the array.
+ * @return Pointer to the constructed CityGraph.
  */
 CityGraph *build_graph(char **city_names, int num_cities, Distance *distances, int num_distances) {
-    CityGraph *graph = create_graph(num_cities);
-
+    CityGraph *graph = create_graph(num_cities); // create empty graph with given number of cities
+    // Loop through each distance entry to add edges to the graph
     for (int i = 0; i < num_distances; i++) {
-        int src = -1, dest = -1;
+        int src = -1, dest = -1; // indices of source and destination cities
 
-        char src_clean[100], dest_clean[100];
-        strcpy(src_clean, distances[i].source);
-        strcpy(dest_clean, distances[i].destination);
+        // Create space to store cleaned versions of the city names
+        // Temp buffers used to clean up the names before comparing them
+        char src_clean[100], dest_clean[100]; 
+        // Copy the source and destination city names from distances array into temp buffers
+        strcpy(src_clean, distances[i].source); // copy source city to src_clean
+        strcpy(dest_clean, distances[i].destination); // copy destination city to dest_clean
 
-        // Remove trailing newline or carriage return
+        // Remove trailing newline or carriage return characters
         src_clean[strcspn(src_clean, "\r\n")] = '\0';
         dest_clean[strcspn(dest_clean, "\r\n")] = '\0';
 
-        // Find indices of source and destination cities
+        // Loop thru city names to find matching indices of source and destination cities
         for (int j = 0; j < num_cities; j++) {
-            char city_clean[100];
-            strcpy(city_clean, city_names[j]);
-            city_clean[strcspn(city_clean, "\r\n")] = '\0';
-
+            char city_clean[100]; // temp buffer to hold clean city name
+            strcpy(city_clean, city_names[j]); // copy city name to city_clean
+            city_clean[strcspn(city_clean, "\r\n")] = '\0'; // clean up city name
+            // Compare cleaned city name to the cleaned source and destination names
+            // If matches, store the index
             if (strcmp(city_clean, src_clean) == 0) src = j;
             if (strcmp(city_clean, dest_clean) == 0) dest = j;
         }
 
-        // Only add edge if both cities were found
+        // If both cities were found, add the edge between them
         if (src != -1 && dest != -1) {
-            add_edge(graph, src, dest, distances[i].distance);
+            add_edge(graph, src, dest, distances[i].distance); // add undirected edge
         } else {
-            printf("Warning: could not find indices for %s -> %s\n", distances[i].source, distances[i].destination);
+            // If either city was not found, print warning message for
+            printf("Listen! Could not find indices for %s -> %s\n", distances[i].source, distances[i].destination);
         }
     }
 
