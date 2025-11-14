@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include "load_city_data.h"
 #include "load_distance_data.h"
+#include "path_finder.h"
+
 
 void print_scroll_of_guidance() {
     printf("Commands:\n");
@@ -30,6 +32,23 @@ void handle_list_input(const char *filename) {
     }
 }
 
+void debug_this(const char *filename) {
+    // Load cities and distances
+    int num_cities = 0, num_distances = 0;
+    char **cities = load_cities(filename, &num_cities);
+    Distance *distances = load_distances("distances.txt", &num_distances);
+
+    // Build graph and print it
+    CityGraph *graph = build_graph(cities, num_cities, distances, num_distances);
+    debug_graph(graph, cities);
+    print_graph(graph, cities);
+
+    // Cleanup
+    free_graph(graph);
+    free_city_list(cities, num_cities);
+    free_distances(distances);
+}
+
 int main(int argc, char *argv[]) {
     const char *filename = "vertices.txt"; // default file name
     if (argc > 1) filename = argv[1];      // override if provided
@@ -50,22 +69,9 @@ int main(int argc, char *argv[]) {
             print_scroll_of_guidance();
         } else if (strcmp(input, "list") == 0) {
             handle_list_input(filename);
-        } else if (strcmp(input, "debug") == 0) {
-            // Load cities and distances
-            int num_cities = 0, num_distances = 0;
-            char **cities = load_cities(filename, &num_cities);
-            Distance *distances = load_distances("distances.txt", &num_distances);
-
-            // Build graph and print it
-            CityGraph *graph = build_graph(cities, num_cities, distances, num_distances);
-            debug_graph(graph, cities);
-            print_graph(graph, cities);
-
-            // Cleanup
-            free_graph(graph);
-            free_city_list(cities, num_cities);
-            free_distances(distances);
-        
+        } else if (strcmp(input, "debug") == 0) {  //remove later
+            debug_this(filename);
+            continue;
 
         } else {
             printf("Invalid Command\n");
