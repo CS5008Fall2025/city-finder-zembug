@@ -68,7 +68,7 @@ void handle_path_input(const char *city1, const char *city2, const char *vertice
         for (int i = 0; i < path_length; i++) {
             printf("\t%s\n", city_names[path[i]]);
         }
-        printf("Total distance: %d\n", total_distance);
+        printf("Total Distance: %d\n", total_distance);
         free(path);
     } else {
         printf("Path Not Found...\n");
