@@ -5,7 +5,7 @@
 #include "load_distance_data.h"
 #include "path_finder.h"
 
-
+// Function to print the list of available cities
 void print_scroll_of_guidance() {
     printf("Commands:\n");
     printf("\tlist - list all cities\n");
@@ -14,54 +14,57 @@ void print_scroll_of_guidance() {
     printf("\texit - exit the program\n");
 }
 
+// Function to print the welcome splash message
 void print_splash_message() {
     printf("***** Welcome to the shortest path finder! ******\n");
     print_scroll_of_guidance();
     printf("*******************************************************\n");
 }
 
+ // Function to handle the "list" command input
 void handle_list_input(const char *vertices_filename) {
-    int num_cities;
-    char **city_names = load_cities(vertices_filename, &num_cities);
+    int num_cities; // number of cities loaded
+    char **city_names = load_cities(vertices_filename, &num_cities); // load city names from file
 
     if (city_names) {
-        print_city_list(city_names, num_cities);
-        free_city_list(city_names, num_cities);
+        print_city_list(city_names, num_cities); // print the list of cities
+        free_city_list(city_names, num_cities); // free allocated memory for city names
     } else {
         printf("No cities loaded.\n");
     }
 }
 
+// Function to handle the pathfinding command input
 void handle_path_input(const char *city1, const char *city2, const char *vertices_filename, const char *distances_filename) {
-    int num_cities = 0, num_distances = 0;
-    char **city_names = load_cities(vertices_filename, &num_cities);
-    Distance *distances = load_distances(distances_filename, &num_distances);
+    int num_cities = 0, num_distances = 0; // number of cities and distances loaded
+    char **city_names = load_cities(vertices_filename, &num_cities); // load city names from file
+    Distance *distances = load_distances(distances_filename, &num_distances); // load distances from file
 
-    if (!city_names || !distances) {
+    if (!city_names || !distances) { // check if loading was successful
         printf("Failed loading city or distance data.\n");
         return;
     }
-    CityGraph *graph = build_graph(city_names, num_cities, distances, num_distances);
+    CityGraph *graph = build_graph(city_names, num_cities, distances, num_distances); // build the city graph
 
-    int src = -1, dest = -1;
+    int src = -1, dest = -1; // indices of source and destination cities
     for (int i = 0; i < num_cities; i++) {
-        char clean[100];
-        strcpy(clean, city_names[i]);
+        char clean[100]; // buffer to hold cleaned city name
+        strcpy(clean, city_names[i]); // copy city name to buffer
         clean[strcspn(clean, "\r\n")] = '\0'; // remove newline if present
-        if (strcmp(clean, city1) == 0) src = i;
-        if (strcmp(clean, city2) == 0) dest = i;
+        if (strcmp(clean, city1) == 0) src = i; // check if city matches source
+        if (strcmp(clean, city2) == 0) dest = i; // check if city matches destination
     }
 
-    if (src == -1 || dest == -1) {
+    if (src == -1 || dest == -1) { // check if both cities were found
         printf("Invalid Command\n");
         free_graph(graph);
         free_city_list(city_names, num_cities);
         free_distances(distances);
         return;
     }
-    int path_length = 0;
-    int total_distance = 0;
-    int *path = shortest_path(graph, src, dest, &path_length, &total_distance);
+    int path_length = 0; // length of the shortest path
+    int total_distance = 0; // total distance of the shortest path
+    int *path = shortest_path(graph, src, dest, &path_length, &total_distance); // find the shortest path
 
     if (path) {
         printf("Path Found...\n");
@@ -86,9 +89,10 @@ int main(int argc, char *argv[]) {
     if (argc > 1) vertices_filename = argv[1]; // override if provided
     if (argc > 2) distances_filename = argv[2]; // override if provided
 
-    char input[137];
+    char input[137]; // buffer for user input
     print_splash_message();
 
+    // Main input loop
     while (1) {
         printf("Where do you want to go today? ");
 

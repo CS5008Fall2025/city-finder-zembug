@@ -5,9 +5,9 @@ Name: Emily Bennett
 
 Github Account name: zembug
 
-Link to Assignment on Github: ([copy and paste the link to your assignment repo here](https://github.com/CS5008Fall2025/city-finder-zembug))
+Link to Assignment on Github: ([city-finder-zembug](https://github.com/CS5008Fall2025/city-finder-zembug))
 
-How many hours did it take you to complete this assignment (estimate)? 
+How many hours did it take you to complete this assignment (estimate)? 40 hours
 
 Did you collaborate with any other students/TAs/Professors? If so, tell us who and in what capacity.  
 - one per row, add more if needed

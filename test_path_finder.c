@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "path_finder.h"
 
+// Test the shortest_path function
 int main() {
     printf("Beginning journey through Middle-earth!\n");
     // Sample city names and distances
@@ -25,7 +26,8 @@ int main() {
 
     // Find shortest path from Rivendell to Helm's Deep
     int path_length = 0;
-    int *path = shortest_path(graph, 0, 3, &path_length); // indices 0 = Rivendell, 3 = Helm's Deep
+    int total_distance = 0;
+    int *path = shortest_path(graph, 0, 3, &path_length, &total_distance); // indices 0 = Rivendell, 3 = Helm's Deep
     
     // Print the path result
     if (path) {

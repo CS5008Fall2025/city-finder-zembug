@@ -3,6 +3,8 @@
 #include <string.h>
 #include "load_distance_data.h"
 
+
+// Test the load_distances function
 int main() {
     int num_distances = 0;
 

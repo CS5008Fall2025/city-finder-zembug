@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "load_city_data.h"
 
+
+// Test the load_cities function
 int main() {
     int num_cities = 0;
 

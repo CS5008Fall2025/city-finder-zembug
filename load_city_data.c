@@ -53,7 +53,7 @@ void print_city_list(char **city_names, int num_cities) {
  */
 void free_city_list(char **cities, int count) {
     for (int i = 0; i < count; i++) {
-        free(cities[i]);
+        free(cities[i]); // free each city name string
     }
-    free(cities);
+    free(cities); // free the array of city name pointers
 }

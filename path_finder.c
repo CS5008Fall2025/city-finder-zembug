@@ -78,13 +78,12 @@ int *shortest_path(CityGraph *graph, int src, int dest, int *path_length, int *t
                 distance[next_city] = alt_distance;
                 prev[next_city] = curr_city;
             }
-
         }
     }
 
     // If destination is still unreachable, no valid path
     if (distance[dest] == INT_MAX) {
-        *path_length = 0;
+        *path_length = 0; // no cities in path
         FREEPATH();
         return NULL;
     }
