@@ -55,14 +55,14 @@ For both these questions, are you are free to use what you did as the last secti
 
 1. Select one technical interview question (this module or previous) from the [technical interview list](https://github.com/CS5008-khoury/Resources/blob/main/TechInterviewQuestions.md) below and answer it in a few sentences. You can use any resource you like to answer the question.
 
-Explain the difference between BFS and DFS. What are some applications of each?
+   Explain the difference between BFS and DFS. What are some applications of each?
 
    Breadth First Search and Depth Firth Search are two ways to explore graphs. BFS uses a queue to visit nodes level by level, making it useful for shortest paths in unweighted graphs or level order traversal. DFS uses recursion or a stack to go deep along one path before backtracking, which helps in finding all possible paths. BFS is often applied in social networks to find the shortest connection between people and in web crawlers to explore sites layer by layer. DFS, is used for solving puzzles or mazes and identifying connected components in networks or images.
 
 
 2. Select one coding question (this module or previous) from the [coding practice repository](https://github.com/CS5008-khoury/Resources/blob/main/LeetCodePractice.md) and include a c file with that code with your submission. Make sure to add comments on what you learned, and if you compared your solution with others. 
 
-[containsDuplicate.c](containsDuplicate.c)
+   [containsDuplicate.c](containsDuplicate.c)
 
 
 ## References
